@@ -5,7 +5,7 @@
   "description": "Connect a react component to callbag(s)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krawaller/callbag-from-react.git"
+    "url": "git+https://github.com/krawaller/callbag-connect-react.git"
   },
   "main": "index.js",
   "scripts": {
