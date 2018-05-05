@@ -9,12 +9,12 @@ A utility for connecting a React component with [Callbag](https://github.com/cal
 ```
 import connect from 'callbag-connect-react
 
-@connect({
-  sources: {
+@connect(
+  { // Objects are assumed to contain sourcess
     propName: source1,
     ...
   },
-  signals: [
+  [ // Arrays are assumed to contain signals
     [source2, callback],
     ...
   ]

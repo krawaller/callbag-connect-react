@@ -17,7 +17,7 @@ test('it connects source to props', t => {
   const source = makeMock(true);
   let testValue;
 
-  @connect({sources: {test: source}})
+  @connect({test: source})
   class Wrapped extends React.Component {
     componentDidUpdate(){
       testValue = this.props.test;
@@ -59,7 +59,7 @@ test('it acts on signals correctly', t => {
 
   t.plan(1);
 
-  @connect({signals: [ [source, (me,data) => me.receive(data)] ]})
+  @connect({}, [ [source, (me,data) => me.receive(data)] ])
   class Wrapped extends React.Component {
     receive(data){
       t.equal(data, 'data', 'Emission was correctly passed in');
@@ -73,6 +73,26 @@ test('it acts on signals correctly', t => {
   setTimeout(t.end);
 });
 
+test('it works to pass signals as first arg', t => {
+  setupDOM();
+
+  const source = makeMock(true);
+
+  t.plan(1);
+
+  @connect([ [source, (me,data) => me.receive(data)] ])
+  class Wrapped extends React.Component {
+    receive(data){
+      t.equal(data, 'data', 'Emission was correctly passed in');
+    }
+    render(){ return <span>Output doesn't matter</span>; }
+  }
+
+  const wrapper = Enzyme.mount(<Wrapped/>);
+  source.emit(1, 'data');
+
+  setTimeout(t.end);
+});
 
 // Helper function from Enzyme guide
 // https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md

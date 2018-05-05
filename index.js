@@ -1,9 +1,13 @@
 var React = require('react');
 var forEach = require('callbag-for-each');
 
-module.exports = function connect(opts){
-  var sources = opts.sources || {};
-  var signals = opts.signals || [];
+module.exports = function connect(...args){
+  let sources = {}, signals = [];
+  args.forEach(a => {
+    if (Array.isArray(a)) signals = signals.concat(a);
+    else if (typeof a === 'object') sources = Object.assign(sources,a);
+    else throw new Error('Unknown argument passed to connect! ' + a);
+  });
   return function(Comp){
     class SourceWrapper extends React.Component {
       constructor(props){
