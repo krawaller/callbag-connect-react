@@ -7,9 +7,13 @@
     "type": "git",
     "url": "git+https://github.com/krawaller/callbag-connect-react.git"
   },
-  "main": "index.js",
+  "main": "index.cjs.js",
+  "module": "index.js",
   "scripts": {
-    "test": "tape -r babel-register test.js"
+    "build": "rollup $npm_package_module -o $npm_package_main --f cjs --external react,callbag-for-each",
+    "pretest": "npm run build",
+    "test": "tape -r babel-register test.js",
+    "prepare": "npm test"
   },
   "license": "MIT",
   "keywords": [
@@ -27,6 +31,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "jsdom": "^11.10.0",
     "react-dom": "^16.3.2",
+    "rollup": "^0.63.4",
     "tape": "^4.9.0"
   },
   "dependencies": {
