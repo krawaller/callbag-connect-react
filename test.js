@@ -4,7 +4,7 @@ const Adapter = require('enzyme-adapter-react-16');
 const makeMock = require('callbag-mock');
 const test = require('tape');
 const { JSDOM } = require('jsdom');
-const connect = require('./index');
+const connect = require('.');
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -99,7 +99,7 @@ test('it works to pass signals as first arg', t => {
 function setupDOM(){
   const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
   const { window } = jsdom;
-  
+
   function copyProps(src, target) {
     const props = Object.getOwnPropertyNames(src)
       .filter(prop => typeof target[prop] === 'undefined')
@@ -109,7 +109,7 @@ function setupDOM(){
       }), {});
     Object.defineProperties(target, props);
   }
-  
+
   global.window = window;
   global.document = window.document;
   global.navigator = {

@@ -1,7 +1,7 @@
-var React = require('react');
-var forEach = require('callbag-for-each');
+import * as React from 'react';
+import forEach from 'callbag-for-each';
 
-module.exports = function connect(...args){
+export default function connect(...args){
   let sources = {}, signals = [];
   args.forEach(a => {
     if (Array.isArray(a)) signals = signals.concat(a);
